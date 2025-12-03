@@ -11,3 +11,10 @@ FROM public.ecr.aws/lambda/python:3.13
 #
 # A Lambda handler is the entry point function executed by AWS Lambda.
 # It receives two parameters: 'event' (input data) and 'context' (runtime information).
+COPY requirements.txt ${LAMBDA_TASK_ROOT}
+
+RUN pip install -r requirements.txt
+
+COPY lambda_function.py ${LAMBDA_TASK_ROOT}
+
+CMD [ "lambda_function.lambda_handler" ]
